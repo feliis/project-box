@@ -1,0 +1,73 @@
+@import './base.css';
+@import 'primeicons/primeicons.css';
+
+#app {
+  user-select: none;
+}
+
+html {
+  font-size: 10px;
+}
+
+img {
+  pointer-events: none;
+  -webkit-user-drag: none;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/Montserrat-Regular.woff') format('woff');
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/Montserrat-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/Montserrat-SemiBold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+
+.Montserrat_14_Regular {
+  font-family: 'Montserrat', serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  line-height: 1.4rem;
+  text-align: left;
+}
+
+.Montserrat_26_ExtraBold {
+  font-family: 'Montserrat', serif;
+  font-size: 2.6rem;
+  font-weight: 1000;
+  line-height: 2.6rem;
+  text-align: left;
+}
+
+.Montserrat_32_ExtraBold {
+  font-family: 'Montserrat', serif;
+  font-size: 3.2rem;
+  font-weight: 1000;
+  line-height: 4.8rem;
+  text-align: left;
+}
+
+.Montserrat_96_ExtraBold {
+  font-family: 'Montserrat', serif;
+  color: transparent;
+  background: var(--color-text-temperature-light);
+  font-size: 9.6rem;
+  font-weight: 1000;
+  line-height: 9.6rem;
+  text-align: left;
+
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
