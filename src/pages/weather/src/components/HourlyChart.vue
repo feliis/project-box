@@ -1,11 +1,26 @@
 <script setup lang="ts">
-import { computed, defineProps, ref, onMounted, nextTick } from 'vue';
+import { computed, defineProps, ref, onMounted, nextTick, watchEffect, watch } from 'vue'
 import { Line } from 'vue-chartjs';
-import { Chart as ChartJS, Title, Tooltip, Legend, CategoryScale, LinearScale, PointElement, LineElement, Filler } from 'chart.js';
+import {
+  Chart as ChartJS,
+  Title,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Filler,
+} from 'chart.js'
+
+const store = useThemeStore();
+const { isDark } = storeToRefs(store);
 
 ChartJS.register(Title, Tooltip, Legend, CategoryScale, LinearScale, PointElement, LineElement, Filler);
 
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { useThemeStore } from '@/stores/themeStore.ts'
+import { storeToRefs } from 'pinia'
 ChartJS.register(ChartDataLabels);
 
 const props = defineProps<{
@@ -16,6 +31,11 @@ const props = defineProps<{
 }>();
 
 const chartRef = ref(null);
+const textColor = ref('#000');
+
+const updateTextColor = () => {
+  textColor.value = getComputedStyle(document.documentElement).getPropertyValue('--color-text').trim() || '#000';
+};
 
 const chartData = computed(() => {
   const currentDate = new Date();
@@ -52,7 +72,7 @@ const chartData = computed(() => {
         datalabels: {
           display: true,
           align: 'top',
-          color: 'var(--color-text-weather)',
+          color: textColor.value,
           font: { weight: 'bold', size: 14 },
           formatter: (value: number) => `${Math.ceil(value)}°`,
         },
@@ -81,22 +101,31 @@ const chartOptions = computed(() => ({
         maxRotation: 0,
         autoSkip: false,
       },
+      grid: {
+        color: isDark.value ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.1)',
+      },
     },
     y: {
-      beginAtZero: false,
+      beginAtZero: true,
       display: false,
-      min: Math.min(...chartData.value.datasets[0].data) - 2,
-      max: Math.max(...chartData.value.datasets[0].data) + 2,
+      ticks: {
+        display: false,
+      },
     },
   },
 }));
 onMounted(() => {
+  updateTextColor();
   nextTick(() => {
     if (chartRef.value) {
       chartRef.value.chart.resize();
     }
   });
 });
+
+watch(isDark, (val) => {
+  updateTextColor();
+}, { immediate: true })
 </script>
 
 <template>

@@ -1,16 +1,18 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from 'vue'
-import { useWindowSize } from '@vueuse/core';
+import { computed, ref, watch } from 'vue'
 import { useSidebarStore } from '@/layout/src/components/sidebar/store'
 import { mainLinks } from '@/layout/src/components/sidebar/constants/LinkList.ts'
+import Switch from '@/layout/src/components/sidebar/Switch.vue'
 import SidebarList from '@/layout/src/components/sidebar/SidebarList.vue'
+import { useThemeStore } from '@/stores/themeStore.ts'
+import { storeToRefs } from 'pinia'
 
-const { width } = useWindowSize();
 const emit = defineEmits<{ (e: 'sidebar-toggled', state: boolean): void }>();
+const store = useThemeStore();
+const { isDark } = storeToRefs(store);
+
 const sidebarStore = useSidebarStore();
-const iconLogoName = computed(() =>
-  sidebarStore.isSidebarExpanded ? 'logo-full' : 'logo-collapsed',
-);
+
 const sidebarClass = computed(() => ({
   _collapse: !sidebarStore.isSidebarExpanded,
 }));
@@ -40,6 +42,9 @@ function handleMouseLeave() {
 
       <div class="sidebar__navs">
         <SidebarList :items="mainLinks" title="Проекты"/>
+        <div class="sidebar__navs-bottom">
+          <Switch v-model="isDark" />
+        </div>
       </div>
     </div>
   </aside>
@@ -68,17 +73,15 @@ function handleMouseLeave() {
     z-index: -1;
   }
 
-
   &._collapse {
     width: 10.4rem;
     border-radius: 5rem;
   }
 
-
-
   &__inner {
-    position: relative;
-    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
 
   &__head {
@@ -87,68 +90,42 @@ function handleMouseLeave() {
     align-items: center;
     gap: 1.6rem;
     margin-bottom: 6.4rem;
-
-    ._collapse & {
-      gap: 1rem;
-      padding-left: 1.4rem;
-    }
   }
 
   &__logo {
     width: 20.4rem;
     height: 3.2rem;
     transition: width 0.3s;
-
-    ._collapse & {
-      width: 4rem;
-    }
-  }
-
-  &__toggle {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-
-    &-icon {
-      width: 2.8rem;
-      aspect-ratio: 1 / 1;
-      flex-shrink: 0;
-      transform: rotate(180deg);
-
-      &._rotate {
-        transform: rotate(0);
-      }
-    }
   }
 
   &__navs {
     display: flex;
     flex-direction: column;
-    gap: 3.2rem;
+    flex-grow: 1;
+    min-height: 0;
+    padding-bottom: 4rem;
   }
 }
 
+.sidebar__navs-bottom {
+  position: absolute;
+  display: flex;
+  justify-content: start;
+  bottom: 2rem;
+  width: 100%;
+  padding-top: 1rem;
+}
 
-@media screen and (width <= 1500px) {
+@media screen and (max-width: 1500px) {
   .sidebar__head {
     flex-direction: column;
     margin-bottom: 4.8rem;
   }
+
   .sidebar {
     padding: 1.6rem;
-
-    &__toggle {
-      display: none;
-    }
-
     &._collapse {
-      width: 8rem;
-    }
-
-    &__head {
-      ._collapse & {
-        padding-left: 0;
-      }
+      width: 9.3rem;
     }
 
     &__link-home {

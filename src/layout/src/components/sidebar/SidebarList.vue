@@ -44,6 +44,10 @@ function isCurrent(currentUrl: string, name: string) {
 
 <style scoped lang="scss">
 .sidebar-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
   &__title {
     color: var(--vt-c-text-light-2);
     font-size: 1.4rem;

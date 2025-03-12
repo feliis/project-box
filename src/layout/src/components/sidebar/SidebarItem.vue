@@ -26,13 +26,6 @@ const sidebarStore = useSidebarStore();
     >
       <div class="sidebar-item__inner">
         <i  class="sidebar-item__icon" :class="`pi pi-${item.icon}`" style="font-size: 2.4rem"></i>
-
-<!--        <SeoIcon-->
-<!--          class="sidebar-item__icon"-->
-<!--          :class="{ 'sidebar-item__icon_current': isCurrent, _special: item.iconColor }"-->
-<!--          :name="item.icon"-->
-<!--        />-->
-
         <span class="sidebar-item__title" v-if="sidebarStore.isSidebarExpanded">
           {{ item.title }}
         </span>

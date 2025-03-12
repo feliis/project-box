@@ -113,7 +113,7 @@ const getImageSrc = (index) => {
 .max-temp {
   font-size: 1.4rem;
   font-weight: 600;
-  color: var(--color-text-weather);
+  color: var(--color-text);
 }
 
 .min-temp {

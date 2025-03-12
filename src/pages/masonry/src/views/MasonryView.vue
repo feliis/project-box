@@ -6,7 +6,7 @@ import Item from '@/pages/masonry/src/components/Item.vue'
   <div class="wrapper">
     <div class="container">
       <div class="masonry">
-        <Item class="items" v-for="i in 500" :numbering="i" :key="i"/>
+        <Item class="items" v-for="i in 100" :numbering="i" :key="i"/>
       </div>
     </div>
   </div>

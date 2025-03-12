@@ -1,5 +1,10 @@
 <script setup>
-import { onMounted, ref, computed, defineProps } from 'vue';
+import { onMounted, ref, computed, defineProps, watch } from 'vue'
+import { useThemeStore } from '@/stores/themeStore.js'
+import { storeToRefs } from 'pinia'
+
+const store = useThemeStore();
+const { isDark } = storeToRefs(store);
 
 const props = defineProps({
   monthly: {
@@ -13,6 +18,13 @@ const monthNames = [
   "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
   "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"
 ];
+
+const textColor = ref('#000');
+const canvasRef = ref(null);
+
+const updateTextColor = () => {
+  textColor.value = getComputedStyle(document.documentElement).getPropertyValue('--color-text').trim() || '#000';
+};
 
 const aggregateMonthlyData = () => {
   if (!props.monthly || !props.monthly.time || props.monthly.time.length === 0) {
@@ -61,12 +73,14 @@ const padding = 50;
 const pointSpacing = computed(() => (width - padding * 2) / (labels.value.length - 1));
 
 const tempToY = (temp) => height - padding - ((temp - minTemp.value) / tempRange.value) * (height - padding * 2);
+const leftPadding = padding - 10;
 
-const canvasRef = ref(null);
-
-onMounted(() => {
+const drawChart = () => {
   const canvas = canvasRef.value;
+  if (!canvas) return;
+
   const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, width, height);
 
   const drawAxis = () => {
     ctx.strokeStyle = 'gray';
@@ -75,14 +89,14 @@ onMounted(() => {
     for (let t = 0; t <= Math.floor(tempRange.value / 10); t++) {
       const y = tempToY(minTemp.value + t * 10);
       ctx.beginPath();
-      ctx.moveTo(padding, y);
-      ctx.lineTo(width - padding, y);
+      ctx.moveTo(leftPadding, y);
+      ctx.lineTo(width - leftPadding, y);
       ctx.stroke();
 
-      ctx.fillStyle = 'black';
-      ctx.font = '12px Arial';
+      ctx.fillStyle = textColor.value;
+      ctx.font = '14px Arial';
       ctx.textAlign = 'end';
-      ctx.fillText(`${minTemp.value + t * 10}°`, padding - 10, y + 4);
+      ctx.fillText(`${minTemp.value + t * 10}°`, padding - 20, y + 4);
     }
   };
 
@@ -113,24 +127,30 @@ onMounted(() => {
       ctx.closePath();
       ctx.fill();
 
-      ctx.fillStyle = 'black';
-      ctx.font = '12px Arial';
+      ctx.fillStyle = textColor.value;
+      ctx.font = '14px Arial';
       ctx.textAlign = 'center';
       ctx.fillText(`${data.maxTemp === "-0.0" ? "0.0" : Math.ceil(data.maxTemp)}°`, x + 15, yMax - 5);
       ctx.fillText(`${data.minTemp === "-0.0" ? "0.0" : Math.ceil(data.minTemp)}°`, x + 15, yMin + 15);
-      ctx.font = '14px Arial';
-      ctx.fillText(data.label, x + 15, height - padding + 20);
+      ctx.font = '16px Arial';
+      ctx.fillText(data.label, x + 15, height - padding + 40);
     });
   };
 
-  const drawChart = () => {
-    ctx.clearRect(0, 0, width, height);
-    drawAxis();
-    drawTemperatureRectangles();
-  };
+  drawAxis();
+  drawTemperatureRectangles();
+};
 
+onMounted(() => {
+  updateTextColor();
   drawChart();
 });
+
+watch([isDark, textColor], () => {
+  updateTextColor();
+  drawChart();
+}, { immediate: true });
+
 </script>
 
 <template>

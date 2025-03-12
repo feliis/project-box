@@ -94,7 +94,7 @@ const hourly = computed(() => weatherData.value?.hourly ?? null);
 
 <style scoped>
 .view-container {
-  background: var(--color-background-component);
+  background: var(--bg-component);
   border-radius: 4rem;
   padding: 2rem;
   display: grid;

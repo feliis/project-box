@@ -16,10 +16,18 @@ const error = ref<string | null>(null);
 
 const el = ref<HTMLElement | null>(null);
 
+const todoStatus = ref(new Map<number, boolean>());
+
 async function loadTodos() {
   loading.value = true;
-  list.value = await TodoService.getTodos();
-  loading.value = false;
+  try {
+    list.value = await TodoService.getTodos();
+    todoStatus.value = new Map(list.value.map(item => [item.id, item.completed]));
+  } catch (err) {
+    error.value = "Failed to load todos";
+  } finally {
+    loading.value = false;
+  }
 }
 
 onMounted(async () => {
@@ -27,12 +35,6 @@ onMounted(async () => {
   nextTick(() => {
     useSortable(el, list)
   });
-});
-
-const todoStatus = ref(new Map<number, boolean>());
-
-list.value.forEach(item => {
-  todoStatus.value.set(item.id, false);
 });
 
 const filteredTodos = computed(() => {
@@ -67,7 +69,7 @@ function removeTodo(todo: ITodo) {
     </div>
     <div v-else>
       <div ref="el" v-if="filteredTodos.length > 0" class="items">
-        <div v-for="todo in filteredTodos" :key="todo.id">
+        <div v-for="todo in filteredTodos" :key="todo.id" class="todo-item">
           <ListItem :item="todo" :status="todoStatus" @remove="removeTodo" />
         </div>
       </div>
@@ -89,7 +91,7 @@ function removeTodo(todo: ITodo) {
   gap: 2rem;
   width: 60rem;
   border-radius: 4rem;
-  background: var(--bg-list);
+  background: var(--bg-component);
   padding: 4rem;
 }
 
@@ -103,9 +105,15 @@ form {
   font-size: 1.4rem;
   height: 4rem;
   border-radius: 1.2rem;
+  color: var(--color-text);
+  background: var(--bg-input);;
   border: 0.1rem solid var(--primary);
   outline: none;
   padding: 2rem;
+
+  &::placeholder {
+    color: gray;
+  }
 }
 
 .items {
@@ -116,7 +124,7 @@ form {
   gap: 1.2rem;
   padding-right: 0.8rem;
   scrollbar-width: thin;
-  scrollbar-color: var(--primary) var(--bg-list-item);
+  scrollbar-color: var(--primary) var(--bg-component-item);
 }
 
 .empty {
