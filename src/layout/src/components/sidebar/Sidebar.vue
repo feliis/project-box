@@ -123,9 +123,9 @@ function handleMouseLeave() {
   }
 
   .sidebar {
-    padding: 1.6rem;
+    padding: 0 1.6rem;
     &._collapse {
-      width: 9.3rem;
+      width: 8.2rem;
     }
 
     &__link-home {

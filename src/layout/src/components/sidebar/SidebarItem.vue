@@ -107,7 +107,7 @@ const sidebarStore = useSidebarStore();
 
 @media screen and (width <= 1500px) {
   .sidebar-item {
-    padding: 0.9rem 1.2rem;
+    padding: 1.2rem 1.2rem;
   }
 }
 </style>
