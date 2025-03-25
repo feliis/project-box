@@ -46,8 +46,8 @@ const sidebarStore = useSidebarStore();
   align-items: center;
   color: var(--color-text);
   text-decoration: none;
-  border-radius: 1.2rem;
-  padding: 1.3rem 1.6rem;
+  border-radius: 2rem;
+  padding: 1.6rem 1.6rem;
   margin-bottom: 0.6rem;
   background-color: var(--main-bg);
   transition: var(--seo-default-animation);
@@ -102,12 +102,12 @@ const sidebarStore = useSidebarStore();
 .sidebar-item__title {
   white-space: nowrap;
   font-weight: 600;
-
+  line-height: 2.4rem;
 }
 
 @media screen and (width <= 1500px) {
   .sidebar-item {
-    padding: 1.2rem 1.2rem;
+    padding: 1.4rem 1.4rem;
   }
 }
 </style>

@@ -54,9 +54,9 @@ function handleMouseLeave() {
 .sidebar {
   position: relative;
   width: 29rem;
-  border-radius: 4rem;
+  border-radius: 4.5rem;
   flex-shrink: 0;
-  padding: 4rem 2.8rem 4rem 2.6rem;
+  padding: 6rem 2.8rem 4rem 2.6rem;
   transition: width 0.5s;
   overflow: hidden;
   border-left: none;
@@ -111,7 +111,7 @@ function handleMouseLeave() {
   position: absolute;
   display: flex;
   justify-content: start;
-  bottom: 2rem;
+  bottom: 3rem;
   width: 100%;
   padding-top: 1rem;
 }
@@ -119,7 +119,7 @@ function handleMouseLeave() {
 @media screen and (max-width: 1500px) {
   .sidebar__head {
     flex-direction: column;
-    margin-bottom: 4.8rem;
+    margin-bottom: 3rem;
   }
 
   .sidebar {

@@ -33,7 +33,7 @@ const store = useThemeStore();
   position: sticky;
 }
 .main {
-  padding: 2.4rem 1.2rem;
+  padding: 2rem 1.2rem;
   height: 100%;
   overflow: hidden;
   &._no-header {

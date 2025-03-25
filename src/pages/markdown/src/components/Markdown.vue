@@ -58,13 +58,14 @@ function syncScroll() {
   width: 100%;
   display: flex;
   overflow: hidden;
+  border-radius: 4rem;
 }
 
 .input-container,
 .output {
   width: 50%;
   box-sizing: border-box;
-  padding: 20px;
+  padding: 2rem;
   overflow: auto;
   scrollbar-width: thin;
 }
@@ -74,7 +75,8 @@ function syncScroll() {
   border-right: 1px solid #ccc;
   resize: none;
   outline: none;
-  background-color: #f6f6f6;
+  background-color: var(--bg-component);
+  color: var(--color-text);
   font-size: 1.2rem;
   font-family: 'Monaco', courier, monospace;
   padding: 2rem;
@@ -82,14 +84,7 @@ function syncScroll() {
 
 .output {
   font-size: 1.2rem;
-  background-color: #fff;
-}
-
-.output {
-  font-size: 1.2rem;
-  background-color: #fff;
-  display: grid;
-  row-gap: 1rem;
+  background-color: var(--bg-component-item);
 }
 
 /* Цитаты и параграфы */
@@ -103,16 +98,17 @@ function syncScroll() {
   border-left: 4px solid #ccc;
   padding: 0.5rem 1rem;
   margin: 0 0 1rem 0;
-  background-color: #f9f9f9;
+  background-color: var(--bg-component);
 }
 .output blockquote blockquote {
   border-left-color: #999;
-  background-color: #f0f0f0;
+  background-color: var(--bg-component);
 }
 
 /* Код */
 pre {
-  background: var(--text-dark-2);
+  height: fit-content;
+  background-color: var(--bg-component);
   padding: 1rem;
   border-radius: 1.6rem;
   font-size: 1rem;
@@ -146,7 +142,7 @@ pre code {
   border-collapse: collapse;
   margin: 1rem 0;
   font-size: 1rem;
-  background-color: #fff;
+  background-color: var(--bg-component-item);
 }
 .output th,
 .output td {
@@ -155,7 +151,8 @@ pre code {
   text-align: left;
 }
 .output th {
-  background-color: #f5f5f5;
+  background-color: var(--bg-component);
+
   font-weight: bold;
 }
 .output td:empty::after {
