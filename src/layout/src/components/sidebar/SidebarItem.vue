@@ -49,7 +49,6 @@ const sidebarStore = useSidebarStore();
   border-radius: 2rem;
   padding: 1.2rem 1.6rem;
   margin-bottom: 0.6rem;
-  background-color: var(--main-bg);
   transition: var(--seo-default-animation);
 
   &_collapsed {
@@ -62,11 +61,11 @@ const sidebarStore = useSidebarStore();
 
   &.active,
   &:hover {
-    color: var(--main-bg);
+    color: var(--color-text);
     background-color: var(--sidebar-item-bg);
 
     & .sidebar-item__icon {
-      color: var(--main-bg);
+      color:  var(--color-text);
     }
   }
 
@@ -76,7 +75,7 @@ const sidebarStore = useSidebarStore();
     width: 2.4rem;
 
     &_current {
-      color: var(--main-bg);
+      color: var(--color-text);
     }
   }
 
@@ -94,7 +93,7 @@ const sidebarStore = useSidebarStore();
   }
 
   &_current {
-    color: var(--main-bg);
+    color: var(--color-text);
     background-color: var(--sidebar-item-bg);
   }
 }

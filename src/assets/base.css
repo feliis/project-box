@@ -61,7 +61,7 @@
 }
 
 [data-theme='dark'] {
-  --bg-app: #16161A;
+  --bg-app: var(--black-soft);
 
   /*To-do list*/
   --bg-component: rgba(0, 0, 0, 0.5);
@@ -74,7 +74,7 @@
 
   /*Sidebar*/
   --sidebar-bg: rgba(0, 0, 0, 0.5);
-  --sidebar-item-bg: rgba(0, 0, 0, 0.6);
+  --sidebar-item-bg: var(--divider-dark-1);
 
   --color-text-temperature: var(--gradient-text-white);
 

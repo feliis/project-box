@@ -62,7 +62,7 @@ const iconComponent = computed(() => {
 }
 
 .value {
-  color: var(--color-text-weather);
+  color: var(--color-text);
 }
 
 @media (max-width: 785px) {

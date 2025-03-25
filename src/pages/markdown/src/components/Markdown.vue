@@ -72,7 +72,7 @@ function syncScroll() {
 
 .input-container {
   border: none;
-  border-right: 1px solid #ccc;
+  border-right: 1px solid var(--color-border);
   resize: none;
   outline: none;
   background-color: var(--bg-component);
@@ -84,7 +84,13 @@ function syncScroll() {
 
 .output {
   font-size: 1.4rem;
-  background-color: var(--bg-component-item);
+  background-color: var(--bg-component);
+  text-align: left;
+  direction: rtl;
+}
+
+.output * {
+  direction: ltr;
 }
 
 /* Цитаты и параграфы */

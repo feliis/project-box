@@ -16,13 +16,12 @@ import Item from '@/pages/masonry/src/components/Item.vue'
 .wrapper {
   display: flex;
   justify-content: center;
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
 }
 
 .container {
   overflow-y: auto;
-  height: 100vh;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
