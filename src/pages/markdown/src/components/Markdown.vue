@@ -77,13 +77,13 @@ function syncScroll() {
   outline: none;
   background-color: var(--bg-component);
   color: var(--color-text);
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   font-family: 'Monaco', courier, monospace;
   padding: 2rem;
 }
 
 .output {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   background-color: var(--bg-component-item);
 }
 

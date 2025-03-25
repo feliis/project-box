@@ -23,7 +23,7 @@ function toggleStatus() {
         :checked="status.get(item.id)"
         @change="toggleStatus"
       >
-      <span class="checkmark"></span> <!-- Custom checkbox design -->
+      <span class="checkmark"></span>
     </label>
     <span :class="{ done: status.get(item.id) }">{{ item.todo }}</span>
     <div class="button" @click="emit('remove', item)">
@@ -43,6 +43,12 @@ function toggleStatus() {
 
   &:active {
     cursor: grabbing;
+  }
+
+  &:hover {
+    .button {
+      display: flex;
+    }
   }
 }
 
@@ -101,6 +107,7 @@ span {
 }
 
 .button {
+  display: none;
   height: 1.8rem;
   color: var(--primary);
 

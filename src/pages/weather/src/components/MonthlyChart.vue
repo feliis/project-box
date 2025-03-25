@@ -189,7 +189,7 @@ watch([isDark, textColor], () => {
 }
 
 .chart-container {
-  min-width: 1600px;
+  min-width: fit-content;
   height: 100%;
   display: flex;
 }

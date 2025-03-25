@@ -49,9 +49,9 @@ const translateWindSpeedUnit = (unit: string): string => {
 };
 
 const weatherTabs = [
-  { icon: 'Thermometer', title: 'Ощущается как', value: feelsLikeTemperature, unit: '°' },
-  { icon: 'Wind', title: 'Скорость ветра', value: windSpeed, unit: windSpeedUnit },
-  { icon: 'Droplets', title: 'Влажность', value: humidity, unit: '%' },
+  { icon: 'Thermometer', title: 'Ощущается как', value: feelsLikeTemperature.value, unit: '°' },
+  { icon: 'Wind', title: 'Скорость ветра', value: windSpeed.value, unit: windSpeedUnit.value },
+  { icon: 'Droplets', title: 'Влажность', value: humidity.value, unit: '%' },
 ];
 </script>
 

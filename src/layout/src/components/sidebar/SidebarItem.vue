@@ -47,7 +47,7 @@ const sidebarStore = useSidebarStore();
   color: var(--color-text);
   text-decoration: none;
   border-radius: 2rem;
-  padding: 1.6rem 1.6rem;
+  padding: 1.2rem 1.6rem;
   margin-bottom: 0.6rem;
   background-color: var(--main-bg);
   transition: var(--seo-default-animation);
@@ -107,7 +107,7 @@ const sidebarStore = useSidebarStore();
 
 @media screen and (width <= 1500px) {
   .sidebar-item {
-    padding: 1.4rem 1.4rem;
+    padding: 1.2rem 1.4rem;
   }
 }
 </style>
