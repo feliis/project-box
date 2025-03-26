@@ -1,0 +1,40 @@
+export const tree = [
+  { id: 1, name: 'lorem ipsum', parentId: null },
+  { id: 2, name: 'dolor sit', parentId: null },
+  { id: 3, name: 'amet consectetur', parentId: null },
+  { id: 4, name: 'adipiscing elit', parentId: null },
+  { id: 5, name: 'sed do', parentId: null },
+
+  { id: 6, name: 'eiusmod tempor', parentId: 1 },
+  { id: 7, name: 'incididunt ut', parentId: 1 },
+  { id: 8, name: 'labore et', parentId: 6 },
+  { id: 9, name: 'dolore magna', parentId: 6 },
+  { id: 10, name: 'aliqua ut', parentId: 7 },
+
+  { id: 11, name: 'enim ad', parentId: 2 },
+  { id: 12, name: 'minim veniam', parentId: 2 },
+  { id: 13, name: 'quis nostrud', parentId: 11 },
+  { id: 14, name: 'exercitation ullamco', parentId: 12 },
+  { id: 15, name: 'laboris nisi', parentId: 12 },
+
+  { id: 16, name: 'ut aliquip', parentId: 3 },
+  { id: 17, name: 'ex ea', parentId: 3 },
+  { id: 18, name: 'commodo consequat', parentId: 16 },
+  { id: 19, name: 'duis aute', parentId: 17 },
+  { id: 20, name: 'irure dolor', parentId: 17 },
+  { id: 21, name: 'in reprehenderit', parentId: 17 },
+
+  { id: 22, name: 'voluptate velit', parentId: 4 },
+  { id: 23, name: 'esse cillum', parentId: 4 },
+  { id: 24, name: 'fugiat nulla', parentId: 22 },
+  { id: 25, name: 'pariatur excepteur', parentId: 22 },
+  { id: 26, name: 'sint occaecat', parentId: 23 },
+
+  { id: 27, name: 'cupidatat non', parentId: 5 },
+  { id: 28, name: 'proident sunt', parentId: 5 },
+  { id: 29, name: 'in culpa', parentId: 27 },
+  { id: 30, name: 'qui officia', parentId: 27 },
+  { id: 31, name: 'deserunt mollit', parentId: 28 },
+  { id: 32, name: 'anim id', parentId: 28 },
+  { id: 33, name: 'est laborum', parentId: 28 },
+];

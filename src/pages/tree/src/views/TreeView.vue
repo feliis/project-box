@@ -1,44 +1,31 @@
 <script setup>
 import { ref } from 'vue'
 import TreeItem from '../components/Item.vue'
-
-const flatTree = ref([
-  { name: 'dolor sit', parent: null },
-  { name: 'amet consectetur', parent: null },
-  { name: 'adipiscing elit', parent: 'dolor sit' },
-  { name: 'lorem ipsum', parent: 'amet consectetur' },
-  { name: 'sed do', parent: 'adipiscing elit' },
-  { name: 'eiusmod tempor', parent: 'adipiscing elit' },
-  { name: 'incididunt ut', parent: 'amet consectetur' },
-  { name: 'labore et dolore', parent: 'amet consectetur' },
-  { name: 'magna aliqua', parent: 'amet consectetur' },
-  { name: 'ut enim', parent: 'magna aliqua' },
-  { name: 'ad minim veniam', parent: 'magna aliqua' }
-])
+import { tree } from '@/pages/tree/constants/index.js'
 
 const buildTree = (items) => {
   const tree = []
   const map = new Map()
 
-  items.forEach(item => map.set(item.name, { ...item, children: [] }))
+  items.forEach(item => map.set(item.id, { ...item, children: [] }))
 
   items.forEach(item => {
-    if (item.parent) {
-      map.get(item.parent)?.children.push(map.get(item.name))
+    if (item.parentId !== null) {
+      map.get(item.parentId)?.children.push(map.get(item.id))
     } else {
-      tree.push(map.get(item.name))
+      tree.push(map.get(item.id))
     }
   })
 
   return tree
 }
 
-const treeData = ref(buildTree(flatTree.value))
+const treeData = ref(buildTree(tree))
 </script>
 
 <template>
   <div class="container">
-    <TreeItem v-for="item in treeData" :key="item.name" :model="item"></TreeItem>
+    <TreeItem v-for="item in treeData" :key="item.id" :model="item"></TreeItem>
   </div>
 </template>
 
