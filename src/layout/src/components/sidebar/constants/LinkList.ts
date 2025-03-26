@@ -15,9 +15,15 @@ export const mainLinks: ISidebarItem[] = [
 
   },
   {
-    title: 'Плиточная раскладка ',
+    title: 'Плиточная раскладка',
     to: { name: 'masonry' },
     icon: 'objects-column',
+
+  },
+  {
+    title: 'Markdown',
+    to: { name: 'markdown' },
+    icon: 'pen-to-square',
 
   },
 ];

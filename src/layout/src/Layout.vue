@@ -8,4 +8,6 @@ import PageTemplate from '@/layout/src/components/template/PageTemplate.vue'
   </PageTemplate>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+
+</style>

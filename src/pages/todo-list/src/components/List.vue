@@ -1,84 +1,90 @@
 <script setup lang="ts">
-import { useSortable } from '@vueuse/integrations/useSortable'
-import { computed, nextTick, onMounted, ref } from 'vue'
-import Spinner from '@/pages/todo-list/src/components/Spinner.vue'
-import ListItem from '@/pages/todo-list/src/components/ListItem.vue'
-import type { ITodo } from '@/pages/todo-list/src/common/intefaces'
-import TodoService from '@/pages/todo-list/src/common/services/todo.service.ts'
+import { ref, computed, nextTick, onMounted } from 'vue';
+import { useSortable } from '@vueuse/integrations/useSortable';
+import Spinner from '@/pages/todo-list/src/components/Spinner.vue';
+import ListItem from '@/pages/todo-list/src/components/ListItem.vue';
+import NotificationTeleport from '@/pages/todo-list/src/components/Notification.vue';
+import type { ITodo } from '@/pages/todo-list/src/common/intefaces';
+import TodoService from '@/pages/todo-list/src/common/services/todo.service.ts';
 
 let id = 0;
-const newTodo = ref("");
+const newTodo = ref('');
 const hideCompleted = ref(false);
 const list = ref<ITodo[]>([]);
-
 const loading = ref(true);
 const error = ref<string | null>(null);
-
 const el = ref<HTMLElement | null>(null);
+const todoStatus = ref(new Map<number, boolean>());
+const notifications = ref<{ addNotification: (message: string) => void } | null>(null);
 
 async function loadTodos() {
   loading.value = true;
-  list.value = await TodoService.getTodos();
-  loading.value = false;
+  try {
+    list.value = await TodoService.getTodos();
+    todoStatus.value = new Map(list.value.map(item => [item.id, item.completed]));
+  } catch (err) {
+    error.value = 'Failed to load todos';
+  } finally {
+    loading.value = false;
+  }
 }
 
 onMounted(async () => {
   await loadTodos();
   nextTick(() => {
-    useSortable(el, list)
+    useSortable(el, list);
   });
 });
 
-const todoStatus = ref(new Map<number, boolean>());
-
-list.value.forEach(item => {
-  todoStatus.value.set(item.id, false);
-});
-
 const filteredTodos = computed(() => {
-  return hideCompleted.value
-    ? list.value.filter((t) => !todoStatus.value.get(t.id))
-    : list.value;
+  return hideCompleted.value ? list.value.filter((t) => !todoStatus.value.get(t.id)) : list.value;
 });
 
 function addTodo() {
+  if (!newTodo.value.trim()) return;
   const item = { id: id++, todo: newTodo.value };
   list.value.unshift(item);
   todoStatus.value.set(item.id, false);
-  newTodo.value = "";
+  newTodo.value = '';
+
+  notifications.value?.addNotification('Task have been created');
 }
 
 function removeTodo(todo: ITodo) {
   list.value = list.value.filter((t) => t !== todo);
   todoStatus.value.delete(todo.id);
+
+  notifications.value?.addNotification('Task deleted');
 }
 </script>
 
 <template>
   <div class="list">
-    <form @submit.prevent="addTodo">
-      <input class="input" v-model="newTodo" required placeholder="Add a new task">
+    <form @submit.prevent="addTodo" @keydown.enter.exact="addTodo">
+      <input class="input" v-model="newTodo" required placeholder="Add a new task" />
       <button class="primary-button">
         <i :class="`pi pi-plus`" style="color: var(--color-background); font-size: 2rem"></i>
       </button>
     </form>
+
     <div v-if="loading" class="empty">
       <Spinner />
     </div>
+
     <div v-else>
       <div ref="el" v-if="filteredTodos.length > 0" class="items">
-        <div v-for="todo in filteredTodos" :key="todo.id">
+        <div v-for="todo in filteredTodos" :key="todo.id" class="todo-item">
           <ListItem :item="todo" :status="todoStatus" @remove="removeTodo" />
         </div>
       </div>
-      <div v-else class="empty">
-        It's empty :(
-      </div>
+      <div v-else class="empty">It's empty :(</div>
     </div>
 
     <span class="hide" @click="hideCompleted = !hideCompleted">
-    {{ hideCompleted ? 'Show all' : 'Hide completed' }}
-  </span>
+      {{ hideCompleted ? 'Show all' : 'Hide completed' }}
+    </span>
+
+    <NotificationTeleport ref="notifications" />
   </div>
 </template>
 
@@ -89,7 +95,7 @@ function removeTodo(todo: ITodo) {
   gap: 2rem;
   width: 60rem;
   border-radius: 4rem;
-  background: var(--bg-list);
+  background: var(--bg-component);
   padding: 4rem;
 }
 
@@ -103,9 +109,15 @@ form {
   font-size: 1.4rem;
   height: 4rem;
   border-radius: 1.2rem;
+  color: var(--color-text);
+  background: var(--bg-input);;
   border: 0.1rem solid var(--primary);
   outline: none;
   padding: 2rem;
+
+  &::placeholder {
+    color: gray;
+  }
 }
 
 .items {
@@ -116,7 +128,7 @@ form {
   gap: 1.2rem;
   padding-right: 0.8rem;
   scrollbar-width: thin;
-  scrollbar-color: var(--primary) var(--bg-list-item);
+  scrollbar-color: var(--primary) var(--bg-component-item);
 }
 
 .empty {

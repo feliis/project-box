@@ -4,7 +4,7 @@ import { onMounted } from 'vue'
 import { useAppStore } from '@/stores/appStore.ts'
 
 const store = useAppStore();
-
+const { isDark } = store;
 onMounted(() => {
   store.updateTimeOfDay();
 });

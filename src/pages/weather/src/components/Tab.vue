@@ -19,7 +19,7 @@ const iconComponent = computed(() => {
   <div v-if="iconComponent" class="tab-container">
     <component class="icon" :is="iconComponent" size="16" />
     <span class="title">{{ title }}</span>
-    <span class="value">{{ value }}{{ unit }}</span>
+    <span class="value">{{ value + ' ' + unit }}</span>
   </div>
 </template>
 
@@ -62,7 +62,7 @@ const iconComponent = computed(() => {
 }
 
 .value {
-  color: var(--color-text-weather);
+  color: var(--color-text);
 }
 
 @media (max-width: 785px) {
