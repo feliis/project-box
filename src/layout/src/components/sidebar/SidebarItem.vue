@@ -25,7 +25,7 @@ const sidebarStore = useSidebarStore();
       :to="item.to"
     >
       <div class="sidebar-item__inner">
-        <i  class="sidebar-item__icon" :class="`pi pi-${item.icon}`" style="font-size: 2.4rem"></i>
+        <i class="sidebar-item__icon" :class="`pi pi-${item.icon}`" style="font-size: 2.4rem"></i>
         <span class="sidebar-item__title" v-if="sidebarStore.isSidebarExpanded">
           {{ item.title }}
         </span>

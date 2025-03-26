@@ -26,4 +26,10 @@ export const mainLinks: ISidebarItem[] = [
     icon: 'pen-to-square',
 
   },
+  {
+    title: 'Дерево',
+    to: { name: 'tree' },
+    icon: 'sitemap',
+
+  },
 ];
